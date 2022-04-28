@@ -287,11 +287,18 @@ download \
 #  "4bec86331abef56129f9d1c994823f03" \
 #  "https://github.com/xiph/speex/archive/"
 
+#download \
+#  "n4.0.tar.gz" \
+#  "ffmpeg4.0.tar.gz" \
+#  "4749a5e56f31e7ccebd3f9924972220f" \
+#  "https://github.com/FFmpeg/FFmpeg/archive"
+
 download \
-  "n4.0.tar.gz" \
-  "ffmpeg4.0.tar.gz" \
-  "4749a5e56f31e7ccebd3f9924972220f" \
-  "https://github.com/FFmpeg/FFmpeg/archive"
+  "ffmpeg-5.0.1.tar.xz" \
+  "" \
+  "c9541d321f08021d28503d89956e80dd" \
+  "https://ffmpeg.org/releases/"
+
 
 [ $download_only -eq 1 ] && exit 0
 
@@ -349,7 +356,7 @@ make install
 echo "*** Building x264 ***"
 cd $BUILD_DIR/x264*
 [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-[ ! -f config.status ] && PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR --enable-static --disable-shared --disable-opencl --enable-pic
+[ ! -f config.status ] && PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR --enable-static=yes --enable-shared=no --disable-opencl --enable-pic
 PATH="$BIN_DIR:$PATH" make -j $jval
 make install
 
@@ -535,7 +542,7 @@ make install
 
 # FFMpeg
 echo "*** Building FFmpeg ***"
-cd $BUILD_DIR/FFmpeg*
+cd $BUILD_DIR/ffmpeg*
 [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
 
 if [ "$platform" = "linux" ]; then
@@ -545,6 +552,7 @@ if [ "$platform" = "linux" ]; then
     --pkg-config-flags="--static" \
     --extra-cflags="-I$TARGET_DIR/include" \
     --extra-ldflags="-L$TARGET_DIR/lib" \
+    --enable-pthreads \
     --enable-pic \
     --enable-ffplay \
     --enable-fontconfig \
