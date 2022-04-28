@@ -109,16 +109,36 @@ download \
   "https://code.videolan.org/videolan/x264/-/archive/stable/"
 
 download \
-  "x265_2.7.tar.gz" \
+  "x265_3.2.tar.gz" \
   "" \
-  "b0d7d20da2a418fa4f53a559946ea079" \
-  "http://download.openpkg.org/components/cache/x265/"
+  "374e6359a00d17fd82195c02c341c861" \
+  "http://mirrors.nju.edu.cn/videolan-ftp/x265/"
+
+#download \
+#  "x265_2.7.tar.gz" \
+#  "" \
+#  "b0d7d20da2a418fa4f53a559946ea079" \
+#  "http://download.openpkg.org/components/cache/x265/"
 
 download \
-  "v0.1.6.tar.gz" \
-  "fdk-aac.tar.gz" \
-  "223d5f579d29fb0d019a775da4e0e061" \
-  "https://github.com/mstorsjo/fdk-aac/archive"
+  "fdk-aac-0.1.6.tar.gz" \
+  "" \
+  "13c04c5f4f13f4c7414c95d7fcdea50f" \
+  "https://jaist.dl.sourceforge.net/project/opencore-amr/fdk-aac/"
+
+
+#download \
+#  "v0.1.6.tar.gz" \
+#  "fdk-aac.tar.gz" \
+#  "223d5f579d29fb0d019a775da4e0e061" \
+#  "https://github.com/mstorsjo/fdk-aac/archive"
+
+#download \
+#  "zlib-1.2.10.tar.gz" \
+#  "" \
+#  "d9794246f853d15ce0fcbf79b9a3cf13" \
+#  "http://www.zlib.net/fossils/"
+
 
 # libass dependency
 download \
@@ -128,16 +148,46 @@ download \
   "https://www.freedesktop.org/software/harfbuzz/release/"
 
 download \
-  "fribidi-1.0.2.tar.bz2" \
+  "fribidi_0.19.7.orig.tar.bz2" \
   "" \
-  "bd2eb2f3a01ba11a541153f505005a7b" \
-  "https://github.com/fribidi/fribidi/releases/download/v1.0.2/"
+  "6c7e7cfdd39c908f7ac619351c1c5c23" \
+  "http://mirrors.nju.edu.cn/ubuntu/pool/main/f/fribidi/" \
+
+download \
+  "libpng-1.2.58.tar.xz" \
+  "" \
+  "1fe68fa3cdab99dbcfd2a6b4de95645f" \
+  "https://sourceforge.net/projects/libpng/files/libpng12/1.2.58"
+
+download \
+  "libxml2-2.9.12.tar.gz" \
+  "" \
+  "f433a39be087a9f0b197eb2307ad9f75" \
+  "http://xmlsoft.org/sources/"
+
+download \
+  "freetype-2.10.2.tar.gz" \
+  "" \
+  "b1cb620e4c875cd4d1bfa04945400945" \
+  "http://download.savannah.gnu.org/releases/freetype" 
+  
+#download \
+#  "fribidi-1.0.2.tar.bz2" \
+#  "" \
+#  "bd2eb2f3a01ba11a541153f505005a7b" \
+#  "https://github.com/fribidi/fribidi/releases/download/v1.0.2/"
 
 download \
   "0.13.6.tar.gz" \
   "libass-0.13.6.tar.gz" \
   "nil" \
   "https://github.com/libass/libass/archive/"
+
+download \
+  "fontconfig-2.12.0.tar.gz" \
+  "" \
+  "d8b056231abcb6257db6dc6d745360b2" \
+  "https://www.freedesktop.org/software/fontconfig/release/"
 
 download \
   "lame-3.99.5.tar.gz" \
@@ -152,10 +202,16 @@ download \
   "https://github.com/xiph/opus/releases/download/v1.1.2"
 
 download \
-  "v1.6.1.tar.gz" \
-  "vpx-1.6.1.tar.gz" \
-  "b0925c8266e2859311860db5d76d1671" \
-  "https://github.com/webmproject/libvpx/archive"
+  "libvpx-1.11.0.tar.gz" \
+  "" \
+  "82e5e527336b41281a582204db1f3457" \
+  "https://github.com/webmproject/libvpx/archive/v1.11.0/" 
+
+#download \
+#  "v1.6.1.tar.gz" \
+#  "vpx-1.6.1.tar.gz" \
+#  "b0925c8266e2859311860db5d76d1671" \
+#  "https://github.com/webmproject/libvpx/archive"
 
 download \
   "rtmpdump-2.3.tgz" \
@@ -176,6 +232,13 @@ download \
   "https://github.com/georgmartius/vid.stab/archive/"
 
 download \
+  "v3.1.0.tar.gz" \
+  "" \
+  "e2d003f9fe981ff7839a8a47b9a54dcc" \
+  "https://github.com/buaazp/zimg/archive/refs/tags/"
+
+
+download \
   "release-2.7.4.tar.gz" \
   "zimg-release-2.7.4.tar.gz" \
   "1757dcc11590ef3b5a56c701fd286345" \
@@ -193,11 +256,11 @@ download \
   "1c3099cd2656d0d80d3550ee29fc0f28" \
   "https://github.com/webmproject/libwebp/archive/"
 
-download \
-  "v1.3.6.tar.gz" \
-  "vorbis-1.3.6.tar.gz" \
-  "03e967efb961f65a313459c5d0f4cbfb" \
-  "https://github.com/xiph/vorbis/archive/"
+#download \
+#  "v1.3.6.tar.gz" \
+#  "vorbis-1.3.6.tar.gz" \
+#  "03e967efb961f65a313459c5d0f4cbfb" \
+#  "https://github.com/xiph/vorbis/archive/"
 
 download \
   "v1.3.3.tar.gz" \
@@ -206,10 +269,17 @@ download \
   "https://github.com/xiph/ogg/archive/"
 
 download \
-  "Speex-1.2.0.tar.gz" \
-  "Speex-1.2.0.tar.gz" \
-  "4bec86331abef56129f9d1c994823f03" \
-  "https://github.com/xiph/speex/archive/"
+  "speex-1.2.0.tar.gz" \
+  "" \
+  "8ab7bb2589110dfaf0ed7fa7757dc49c" \
+  "downloads.us.xiph.org/releases/speex/"
+
+
+#download \
+#  "Speex-1.2.0.tar.gz" \
+#  "Speex-1.2.0.tar.gz" \
+#  "4bec86331abef56129f9d1c994823f03" \
+#  "https://github.com/xiph/speex/archive/"
 
 download \
   "n4.0.tar.gz" \
@@ -285,10 +355,38 @@ autoreconf -fiv
 make -j $jval
 make install
 
+#echo "*** Building zlib ***"
+#cd $BUILD_DIR/zlib-*
+#[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+#./configure --prefix=$TARGET_DIR --disable-shared --enable-static
+#make -j $jval
+#make install
+
 echo "*** Building harfbuzz ***"
 cd $BUILD_DIR/harfbuzz-*
 [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-./configure --prefix=$TARGET_DIR --disable-shared --enable-static
+PKG_CONFIG_PATH=$TARGET_DIR/lib/pkgconfig/ ./configure --prefix=$TARGET_DIR --disable-shared --enable-static
+make -j $jval
+make install
+
+echo "*** Building libpng ***"
+cd $BUILD_DIR/libpng-*
+[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+PKG_CONFIG_PATH=$TARGET_DIR/lib/pkgconfig/ ./configure --prefix=$TARGET_DIR --enable-shared=no --enable-static=yes
+make -j $jval
+make install
+
+echo "*** Building libxml2 ***"
+cd $BUILD_DIR/libxml2-*
+[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+PKG_CONFIG_PATH=$TARGET_DIR/lib/pkgconfig/ ./configure --prefix=$TARGET_DIR --enable-shared=no --enable-static=yes
+make -j $jval
+make install
+
+echo "*** Building freetype ***"
+cd $BUILD_DIR/freetype-*
+[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+PKG_CONFIG_PATH=$TARGET_DIR/lib/pkgconfig/ ./configure --prefix=$TARGET_DIR --enable-shared=no --enable-static=yes
 make -j $jval
 make install
 
@@ -299,13 +397,22 @@ cd $BUILD_DIR/fribidi-*
 make -j $jval
 make install
 
+
+
 echo "*** Building libass ***"
 cd $BUILD_DIR/libass-*
 [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
 ./autogen.sh
-./configure --prefix=$TARGET_DIR --disable-shared
+./configure --prefix=$TARGET_DIR  --enable-static=yes --enable-shared=no --disable-require-system-font-provider
 make -j $jval
 make install
+
+echo "*** Building fontconfig ***"
+cd $BUILD_DIR/fontconfig-*
+[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+#./autogen.sh
+PKG_CONFIG_PATH=$TARGET_DIR/lib/pkgconfig/ ./configure --prefix=$TARGET_DIR --enable-static=yes --enable-shared=no --enable-libxml2 
+make -j $jval
 
 echo "*** Building mp3lame ***"
 cd $BUILD_DIR/lame*
@@ -387,13 +494,13 @@ cd $BUILD_DIR/libwebp*
 make -j $jval
 make install
 
-echo "*** Building libvorbis ***"
-cd $BUILD_DIR/vorbis*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-./autogen.sh
-./configure --prefix=$TARGET_DIR --disable-shared
-make -j $jval
-make install
+#echo "*** Building libvorbis ***"
+#cd $BUILD_DIR/vorbis*
+#[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+#./autogen.sh
+#./configure --prefix=$TARGET_DIR --disable-shared
+#make -j $jval
+#make install
 
 echo "*** Building libogg ***"
 cd $BUILD_DIR/ogg*
@@ -403,13 +510,13 @@ cd $BUILD_DIR/ogg*
 make -j $jval
 make install
 
-echo "*** Building libspeex ***"
-cd $BUILD_DIR/speex*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-./autogen.sh
-./configure --prefix=$TARGET_DIR --disable-shared
-make -j $jval
-make install
+#echo "*** Building libspeex ***"
+#cd $BUILD_DIR/speex*
+#[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+#./autogen.sh
+#./configure --prefix=$TARGET_DIR --disable-shared
+#make -j $jval
+#make install
 
 # FFMpeg
 echo "*** Building FFmpeg ***"
@@ -423,38 +530,30 @@ if [ "$platform" = "linux" ]; then
     --pkg-config-flags="--static" \
     --extra-cflags="-I$TARGET_DIR/include" \
     --extra-ldflags="-L$TARGET_DIR/lib" \
-    --extra-libs="-lpthread -lm -lz" \
-    --extra-ldexeflags="-static" \
-    --bindir="$BIN_DIR" \
     --enable-pic \
     --enable-ffplay \
     --enable-fontconfig \
-    --enable-frei0r \
     --enable-gpl \
+    --enable-nonfree \
     --enable-version3 \
     --enable-libass \
     --enable-libfribidi \
     --enable-libfdk-aac \
     --enable-libfreetype \
     --enable-libmp3lame \
-    --enable-libopencore-amrnb \
-    --enable-libopencore-amrwb \
     --enable-libopenjpeg \
     --enable-libopus \
     --enable-librtmp \
     --enable-libsoxr \
-    --enable-libspeex \
     --enable-libtheora \
     --enable-libvidstab \
     --enable-libvo-amrwbenc \
-    --enable-libvorbis \
     --enable-libvpx \
     --enable-libwebp \
     --enable-libx264 \
     --enable-libx265 \
     --enable-libxvid \
     --enable-libzimg \
-    --enable-nonfree \
     --enable-openssl
 elif [ "$platform" = "darwin" ]; then
   [ ! -f config.status ] && PATH="$BIN_DIR:$PATH" \
