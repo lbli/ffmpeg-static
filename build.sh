@@ -201,6 +201,14 @@ download \
   "1fe68fa3cdab99dbcfd2a6b4de95645f" \
   "https://sourceforge.net/projects/libpng/files/libpng12/1.2.58"
 
+# if want to change python version, dont for get the python head file path when build libxml2
+download \
+  "Python-3.8.0.tar.xz" \
+  "" \
+  "dbac8df9d8b9edc678d0f4cacdb7dbb0" \
+  "https://www.python.org/ftp/python/3.8.0/"
+
+
 download \
   "libxml2-2.9.12.tar.gz" \
   "" \
@@ -499,10 +507,17 @@ PKG_CONFIG_PATH=$TARGET_DIR/lib/pkgconfig/ ./configure --prefix=${TARGET_DIR} CP
 PATH="$BIN_DIR:$PATH" make -j $jval
 make install
 
+echo "*** Building python ***"
+cd $BUILD_DIR/Python-*
+[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+PKG_CONFIG_PATH=$TARGET_DIR/lib/pkgconfig/ ./configure --prefix=$TARGET_DIR  --disable-shared
+PATH="$BIN_DIR:$PATH" make -j $jval
+make install
+
 echo "*** Building libxml2 ***"
 cd $BUILD_DIR/libxml2-*
 [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-PKG_CONFIG_PATH=$TARGET_DIR/lib/pkgconfig/ ./configure --prefix=$TARGET_DIR --enable-shared=no --enable-static=yes
+PKG_CONFIG_PATH=$TARGET_DIR/lib/pkgconfig/ ./configure --prefix=$TARGET_DIR CPPFLAGS="-I${TARGET_DIR}/include/python3.8" LDFLAGS="-L${TARGET_DIR}/lib" --enable-shared=no --enable-static=yes
 PATH="$BIN_DIR:$PATH" make -j $jval
 make install
 
