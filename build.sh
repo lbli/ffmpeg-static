@@ -81,6 +81,7 @@ cd $BUILD_DIR
 export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:${TARGET_DIR}/lib/pkgconfig
 export PATH=${PATH}:${TARGET_DIR}/bin
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${TARGET_DIR}/lib/
+export PATH=$BIN_DIR:$PATH
 
 
 [ $is_x86 -eq 1 ] && download \
@@ -94,6 +95,42 @@ export PATH=${PATH}:${TARGET_DIR}/bin
   "" \
   "4ab99e8e777c249f32d5c10e82c658f1" \
   "https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/"
+
+download \
+  "cmake-3.23.1.tar.gz" \
+  "" \
+  "b0d46fdcca030372f0a464146243e193" \
+  "https://github.com/Kitware/CMake/releases/download/v3.23.1/"
+
+download \
+  "autoconf-2.70.tar.gz" \
+  "" \
+  "0496b8e1f39d84f4ff8e775fa7ae8b4e" \
+  "ftp.gnu.org/gnu/autoconf/"
+
+download \
+  "m4-1.4.18.tar.gz" \
+  "" \
+  "a077779db287adf4e12a035029002d28" \
+  "http://mirrors.kernel.org/gnu/m4/"
+
+download \
+  "perl-5.26.1.tar.gz" \
+  "" \
+  "a7e5c531ee1719c53ec086656582ea86" \
+  "http://search.cpan.org/CPAN/authors/id/S/SH/SHAY/"
+
+download \
+  "automake-1.16.tar.gz" \
+  "" \
+  "7fb7155e553dc559ac39cf525f0bb5de" \
+  "http://mirrors.kernel.org/gnu/automake/"
+
+download \
+  "libtool-2.2.6b.tar.gz" \
+  "" \
+  "07da460450490148c6d2df0f21481a25" \
+  "mirrors.kernel.org/gnu/libtool/"
 
 download \
   "OpenSSL_1_0_2o.tar.gz" \
@@ -131,7 +168,6 @@ download \
   "00b516f4704d4a7cb50a1d97e6e8e15b" \
   "sourceware.org/pub/bzip2/"
 
-
 #download \
 #  "v0.1.6.tar.gz" \
 #  "fdk-aac.tar.gz" \
@@ -148,10 +184,10 @@ download \
 
 # libass dependency
 download \
-  "harfbuzz-1.4.6.tar.bz2" \
+  "harfbuzz_2.6.4.orig.tar.xz" \
   "" \
-  "e246c08a3bac98e31e731b2a1bf97edf" \
-  "https://www.freedesktop.org/software/harfbuzz/release/"
+  "2b3a4dfdb3e5e50055f941978944da9f" \
+  "mirrors.nju.edu.cn/ubuntu/pool/main/h/harfbuzz/"
 
 download \
   "fribidi_0.19.7.orig.tar.bz2" \
@@ -208,10 +244,10 @@ download \
   "ftp.mozilla.org/pub/opus/" 
 
 download \
-  "libvpx-1.11.0.tar.gz" \
+  "libvpx_1.10.0.orig.tar.gz" \
   "" \
-  "82e5e527336b41281a582204db1f3457" \
-  "https://github.com/webmproject/libvpx/archive/v1.11.0/" 
+  "cded283be38dc0078c3fbe751722efc5" \
+  "mirrors.nju.edu.cn/kali/pool/main/libv/libvpx/" 
 
 #download \
 #  "v1.6.1.tar.gz" \
@@ -305,6 +341,26 @@ download \
 TARGET_DIR_SED=$(echo $TARGET_DIR | awk '{gsub(/\//, "\\/"); print}')
 
 if [ $is_x86 -eq 1 ]; then
+    echo "*** Building bzip2 ***"
+    cd $BUILD_DIR/bzip2*
+    [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+    #[ ! -f config.status ] && ./configure --prefix=$TARGET_DIR --bindir=$BIN_DIR
+    make -j $jval PREFIX=${TARGET_DIR}
+    make install PREFIX=${TARGET_DIR}
+fi
+
+echo "*** Building zlib ***"
+cd $BUILD_DIR/zlib*
+[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+if [ "$platform" = "linux" ]; then
+  [ ! -f config.status ] && PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR --static
+elif [ "$platform" = "darwin" ]; then
+  [ ! -f config.status ] && PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR --static
+fi
+PATH="$BIN_DIR:$PATH" make -j $jval
+make install
+
+if [ $is_x86 -eq 1 ]; then
     echo "*** Building yasm ***"
     cd $BUILD_DIR/yasm*
     [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
@@ -333,26 +389,78 @@ fi
 PATH="$BIN_DIR:$PATH" make -j $jval
 make install
 
-if [ $is_x86 -eq 1 ]; then
-    echo "*** Building bzip2 ***"
-    cd $BUILD_DIR/bzip2*
-    [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-    #[ ! -f config.status ] && ./configure --prefix=$TARGET_DIR --bindir=$BIN_DIR
-    make -j $jval PREFIX=${TARGET_DIR}
-    make install PREFIX=${TARGET_DIR}
+echo "*** Building m4 ***"
+cd $BUILD_DIR/m4*
+[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+if [ "$platform" = "darwin" ]; then
+  PATH="$BIN_DIR:$PATH" ./Configure darwin64-x86_64-cc --prefix=$TARGET_DIR
+elif [ "$platform" = "linux" ]; then
+  PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR
+  PATH="$BIN_DIR:$PATH" make -j $jval
+  make install
 fi
 
-echo "*** Building zlib ***"
-cd $BUILD_DIR/zlib*
+echo "*** Building cmake ***"
+cd $BUILD_DIR/cmake*
 [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-if [ "$platform" = "linux" ]; then
-  [ ! -f config.status ] && PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR
-elif [ "$platform" = "darwin" ]; then
-  [ ! -f config.status ] && PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR
+if [ "$platform" = "darwin" ]; then
+  PATH="$BIN_DIR:$PATH" ./Configure darwin64-x86_64-cc --prefix=$TARGET_DIR
+elif [ "$platform" = "linux" ]; then
+  PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR
+  PATH="$BIN_DIR:$PATH" make -j $jval
+  make install
 fi
+
+echo "*** Building perl ***"
+cd $BUILD_DIR/perl*
+[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+if [ "$platform" = "darwin" ]; then
+  PATH="$BIN_DIR:$PATH" ./Configure darwin64-x86_64-cc --prefix=$TARGET_DIR
+elif [ "$platform" = "linux" ]; then
+  PATH="$BIN_DIR:$PATH" ./Configure -des -Dprefix=$TARGET_DIR
+  PATH="$BIN_DIR:$PATH" make -j $jval
+  make install
+fi
+
+echo "*** Building autoconf ***"
+cd $BUILD_DIR/autoconf*
+[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+if [ "$platform" = "darwin" ]; then
+  PATH="$BIN_DIR:$PATH" ./Configure darwin64-x86_64-cc --prefix=$TARGET_DIR
+elif [ "$platform" = "linux" ]; then
+  PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR
+  PATH="$BIN_DIR:$PATH" make -j $jval
+  make install
+fi
+
+
+echo "*** Building automake ***"
+cd $BUILD_DIR/automake*
+[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+if [ "$platform" = "darwin" ]; then
+  PATH="$BIN_DIR:$PATH" ./Configure darwin64-x86_64-cc --prefix=$TARGET_DIR
+elif [ "$platform" = "linux" ]; then
+  PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR
+  PATH="$BIN_DIR:$PATH" make -j $jval
+  make install
+fi
+
+
+echo "*** Building libtool ***"
+cd $BUILD_DIR/libtool*
+[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+if [ "$platform" = "darwin" ]; then
+  PATH="$BIN_DIR:$PATH" ./Configure darwin64-x86_64-cc --prefix=$TARGET_DIR --enable-static=yes --enable-shared=no
+elif [ "$platform" = "linux" ]; then
+  PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR --enable-static=yes --enable-shared=no
+  PATH="$BIN_DIR:$PATH" make -j $jval
+  make install
+fi
+
+
+
 PATH="$BIN_DIR:$PATH" make -j $jval
 make install
-
 echo "*** Building x264 ***"
 cd $BUILD_DIR/x264*
 [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
@@ -377,13 +485,6 @@ autoreconf -fiv
 make -j $jval
 make install
 
-#echo "*** Building zlib ***"
-#cd $BUILD_DIR/zlib-*
-#[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-#./configure --prefix=$TARGET_DIR --disable-shared --enable-static
-#make -j $jval
-#make install
-
 echo "*** Building harfbuzz ***"
 cd $BUILD_DIR/harfbuzz-*
 [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
@@ -394,15 +495,15 @@ make install
 echo "*** Building libpng ***"
 cd $BUILD_DIR/libpng-*
 [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-PKG_CONFIG_PATH=$TARGET_DIR/lib/pkgconfig/ ./configure --prefix=$TARGET_DIR --enable-shared=no --enable-static=yes
-make -j $jval
+PKG_CONFIG_PATH=$TARGET_DIR/lib/pkgconfig/ ./configure --prefix=${TARGET_DIR} CPPFLAGS="-I${TARGET_DIR}/include" LDFLAGS="-L${TARGET_DIR}/lib" --enable-shared=no --enable-static=yes
+PATH="$BIN_DIR:$PATH" make -j $jval
 make install
 
 echo "*** Building libxml2 ***"
 cd $BUILD_DIR/libxml2-*
 [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
 PKG_CONFIG_PATH=$TARGET_DIR/lib/pkgconfig/ ./configure --prefix=$TARGET_DIR --enable-shared=no --enable-static=yes
-make -j $jval
+PATH="$BIN_DIR:$PATH" make -j $jval
 make install
 
 echo "*** Building freetype ***"
