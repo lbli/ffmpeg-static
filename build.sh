@@ -9,6 +9,12 @@ rebuild=0
 download_only=0
 uname -mpi | grep -qE 'x86|i386|i686' && is_x86=1 || is_x86=0
 
+
+
+########
+###### install deps yum install autoconf automake bzip2 bzip2-devel cmake  gcc gcc-c++  zlib-devel python-devel libtool
+######
+
 while getopts 'j:Bd' OPTION
 do
   case $OPTION in
@@ -472,7 +478,7 @@ make install
 echo "*** Building x264 ***"
 cd $BUILD_DIR/x264*
 [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-[ ! -f config.status ] && PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR --enable-static=yes --enable-shared=no --disable-opencl --enable-pic
+[ ! -f config.status ] && PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR --enable-static --disable-opencl --enable-pic
 PATH="$BIN_DIR:$PATH" make -j $jval
 make install
 
@@ -675,7 +681,6 @@ if [ "$platform" = "linux" ]; then
     --enable-gpl \
     --enable-nonfree \
     --enable-version3 \
-    --enable-libass \
     --enable-libfribidi \
     --enable-libfdk-aac \
     --enable-libfreetype \
